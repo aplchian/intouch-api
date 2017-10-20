@@ -1,7 +1,7 @@
 
 version: 2
 jobs:
-  build-test-deploy:
+  build:
     context: org-global
     docker:
       - image: circleci/node:latest
