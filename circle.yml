@@ -1,27 +1,25 @@
+machine:
+  environment:
+    PATH: "${PATH}:${HOME}/intouch-api/node_modules/.bin"
+  node:
+    version: 8.1.0
 
-version: 2
-jobs:
-  build:
-    context: org-global
-    docker:
-      - image: circleci/node:latest
-    steps:
-      - checkout
-      - restore_cache:
-          key: dependency-cache-{{ checksum "yarn.lock" }}
-      - run:
-          name: Installing dependencies
-          command: |
-            sudo npm install -g yarn
-            yarn install
-      - save-cache:
-          key: dependency-cache-{{ checksum "yarn.lock" }}
-          paths:
-            - ./node_modules
-      - run:
-          name: Running tests
-      - run:
-          name: Deploying
-          command: |
-            DEPLOY_URL=$(./node_modules/.bin/now -t ${NOW_CLI_TOKEN})
-            ./node_modules/.bin/now alias whatisthisintouch.now.sh
+dependencies:
+  override:
+    - yarn
+  cache_directories:
+    - ~/.cache/yarn
+  pre:
+    - yarn global add now
+
+test:
+  override:
+    - yarn test
+
+deployment:
+  development:
+    branch: master
+    commands:
+      - now -t ${NOW_CLI_TOKEN}
+      - now -t ${NOW_CLI_TOKEN} alias foo-dev-woooo
+  
