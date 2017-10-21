@@ -1,0 +1,4 @@
+{
+  "alias": ["intouch-api-prod"],
+  "forwardNpm": true
+}
