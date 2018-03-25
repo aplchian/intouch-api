@@ -5,7 +5,7 @@ const { getAllEvents } = require("./entities/events/getEvents")
 const createEvent = require("./entities/events/createEvent")
 const updateEvent = require("./entities/events/updateEvent")
 const createError = require("http-errors")
-const deleteDoc = require('./entities/base/deleteDoc')
+const deleteDoc = require("./entities/base/deleteDoc")
 
 const cors = require("cors")
 app.use(bodyParser.json())
@@ -50,6 +50,15 @@ app.delete("/events/:id", async (req, res, next) => {
   try {
     const resp = await deleteDoc(req.params.id)
     res.status(200).send(resp)
+  } catch (error) {
+    return next(createError(400, error.message))
+  }
+})
+
+app.post("/fans", async (req, res, next) => {
+  try {
+    console.log("req.body", JSON.stringify(req.body, null, 2))
+    res.status(200).send(req.body)
   } catch (error) {
     return next(createError(400, error.message))
   }
