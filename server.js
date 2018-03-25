@@ -71,8 +71,8 @@ app.delete("/events/:id", async (req, res, next) => {
 
 app.post("/fans", async (req, res, next) => {
   try {
-    //
-    console.log("req.body", req.body)
+    console.log("---test--")
+    console.log("req.body", JSON.stringify(req.body, null, 2))
     res.status(200).send(req.body)
   } catch (error) {
     return next(createError(400, error.message))
