@@ -25,12 +25,6 @@ var schema = {
               unix: {
                 required: true,
                 type: "number"
-              },
-              endString: {
-                type: "string"
-              },
-              endUnix: {
-                type: "number"
               }
             }
           }
